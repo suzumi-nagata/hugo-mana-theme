@@ -1,4 +1,14 @@
 {{ if .IsPage }}
+{{ $authorName := cond (ne (.Params.author | default "") "") .Params.author (cond (ne (site.Params.author | default "") "") site.Params.author site.Title) }}
+{{ $authorSameAs := slice "https://github.com/Livour" "https://www.linkedin.com/in/lior-manasherov/" }}
+{{ $author := dict "@type" "Person" "name" $authorName "sameAs" $authorSameAs }}
+{{ if site.Params.social.email }}
+  {{ $author = merge $author (dict "email" site.Params.social.email) }}
+{{ end }}
+{{ $publisher := dict "@type" "Organization" "name" site.Title "url" site.BaseURL }}
+{{ if and site.Params.avatar site.Params.avatar.url }}
+  {{ $publisher = merge $publisher (dict "logo" (dict "@type" "ImageObject" "url" site.Params.avatar.url)) }}
+{{ end }}
 {{ $blogPosting := dict
   "@context" "https://schema.org"
   "@type" "BlogPosting"
@@ -7,31 +17,29 @@
   "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")
   "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
   "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
-  "author" (dict "@type" "Person" "name" (cond (ne (.Params.author | default "") "") .Params.author (cond (ne (site.Params.author | default "") "") site.Params.author site.Title)))
-  "publisher" (dict "@type" "Organization" "name" site.Title)
+  "url" .Permalink
+  "inLanguage" .Language.LanguageCode
+  "wordCount" .WordCount
+  "timeRequired" (printf "PT%dM" .ReadingTime)
+  "author" $author
+  "publisher" $publisher
 }}
-{{ if site.Params.social.email }}
-{{ $blogPosting = merge $blogPosting (dict "author" (merge ($blogPosting.author) (dict "email" site.Params.social.email))) }}
-{{ end }}
-{{ if and site.Params.avatar site.Params.avatar.url }}
-{{ $blogPosting = merge $blogPosting (dict "publisher" (merge ($blogPosting.publisher) (dict "logo" (dict "@type" "ImageObject" "url" site.Params.avatar.url)))) }}
-{{ end }}
 {{ if .Params.image }}
-{{ $blogPosting = merge $blogPosting (dict "image" (.Params.image | absURL)) }}
+  {{ $blogPosting = merge $blogPosting (dict "image" (.Params.image | absURL)) }}
 {{ else if site.Params.avatar }}
-{{ $blogPosting = merge $blogPosting (dict "image" site.Params.avatar.url) }}
+  {{ $blogPosting = merge $blogPosting (dict "image" site.Params.avatar.url) }}
 {{ end }}
 {{ if .Params.tags }}
-{{ $blogPosting = merge $blogPosting (dict "keywords" .Params.tags) }}
+  {{ $blogPosting = merge $blogPosting (dict "keywords" .Params.tags) }}
 {{ end }}
 {{ printf "<script type=\"application/ld+json\">%s</script>" ($blogPosting | jsonify) | safeHTML }}
 {{ end }}
 
 {{ if and .IsPage (not .IsHome) }}
   {{ $postsPage := site.GetPage "/posts" }}
-  {{ $breadcrumbItems := slice (dict "@type" "ListItem" "position" 1 "name" site.Title "item" site.BaseURL) }}
+  {{ $breadcrumbItems := slice (dict "@type" "ListItem" "position" 1 "name" (i18n "home" | default "Home") "item" site.Home.Permalink) }}
   {{ if $postsPage }}
-    {{ $breadcrumbItems = $breadcrumbItems | append (dict "@type" "ListItem" "position" 2 "name" "Posts" "item" $postsPage.Permalink) }}
+    {{ $breadcrumbItems = $breadcrumbItems | append (dict "@type" "ListItem" "position" 2 "name" (i18n "posts" | default "Posts") "item" $postsPage.Permalink) }}
   {{ end }}
   {{ $breadcrumbItems = $breadcrumbItems | append (dict "@type" "ListItem" "position" (cond $postsPage 3 2) "name" .Title "item" .Permalink) }}
 {{ printf "<script type=\"application/ld+json\">%s</script>" (dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $breadcrumbItems | jsonify) | safeHTML }}

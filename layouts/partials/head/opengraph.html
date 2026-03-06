@@ -23,13 +23,20 @@
 
 
 <!-- Open Graph / Facebook -->
+{{- $locale := replace site.Language.LanguageCode "-" "_" -}}
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:locale" content="{{ $locale }}">
+{{ range .Translations -}}
+{{- $altLocale := replace .Language.LanguageCode "-" "_" -}}
+<meta property="og:locale:alternate" content="{{ $altLocale }}">
+{{ end -}}
 <meta property="og:title" content="{{ $title }}">
 <meta property="og:description" content="{{ $description }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:site_name" content="{{ site.Title }}">
 {{- if $image -}}
   <meta property="og:image" content="{{ $image }}">
+  <meta property="og:image:alt" content="{{ $title }}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 {{- end -}}
@@ -57,6 +64,7 @@
 <meta name="twitter:description" content="{{ $description }}">
 {{- if $image -}}
   <meta name="twitter:image" content="{{ $image }}">
+  <meta name="twitter:image:alt" content="{{ $title }}">
 {{- end -}}
 {{- if site.Params.social.twitter -}}
   <meta name="twitter:site" content="@{{ site.Params.social.twitter }}">

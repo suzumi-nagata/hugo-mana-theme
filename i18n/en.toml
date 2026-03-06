@@ -27,6 +27,7 @@ skipToMain = "Skip to main content"
 scrollToTop = "Scroll to top"
 
 # Home
+home = "Home"
 recentPosts = "Recent Posts"
 
 # List & filters
@@ -59,6 +60,7 @@ readMore = "Read more"
 archive = "Archive"
 
 # Single post
+relatedPosts = "Related Posts"
 tags = "Tags"
 navPrev = "Previous"
 navNext = "Next"
