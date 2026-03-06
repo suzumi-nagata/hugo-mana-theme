@@ -27,6 +27,7 @@ skipToMain = "דלג לתוכן הראשי"
 scrollToTop = "גלול למעלה"
 
 # Home
+home = "דף הבית"
 recentPosts = "פוסטים אחרונים"
 
 # List & filters
@@ -59,6 +60,7 @@ readMore = "קרא עוד"
 archive = "ארכיון"
 
 # Single post
+relatedPosts = "פוסטים קשורים"
 tags = "תגיות"
 navPrev = "הקודם"
 navNext = "הבא"

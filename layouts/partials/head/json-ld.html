@@ -37,9 +37,9 @@
 
 {{ if and .IsPage (not .IsHome) }}
   {{ $postsPage := site.GetPage "/posts" }}
-  {{ $breadcrumbItems := slice (dict "@type" "ListItem" "position" 1 "name" site.Title "item" site.BaseURL) }}
+  {{ $breadcrumbItems := slice (dict "@type" "ListItem" "position" 1 "name" (i18n "home" | default "Home") "item" site.Home.Permalink) }}
   {{ if $postsPage }}
-    {{ $breadcrumbItems = $breadcrumbItems | append (dict "@type" "ListItem" "position" 2 "name" "Posts" "item" $postsPage.Permalink) }}
+    {{ $breadcrumbItems = $breadcrumbItems | append (dict "@type" "ListItem" "position" 2 "name" (i18n "posts" | default "Posts") "item" $postsPage.Permalink) }}
   {{ end }}
   {{ $breadcrumbItems = $breadcrumbItems | append (dict "@type" "ListItem" "position" (cond $postsPage 3 2) "name" .Title "item" .Permalink) }}
 {{ printf "<script type=\"application/ld+json\">%s</script>" (dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $breadcrumbItems | jsonify) | safeHTML }}
