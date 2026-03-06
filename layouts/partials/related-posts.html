@@ -1,0 +1,16 @@
+{{ $related := .Site.RegularPages.Related . | first 3 }}
+{{ with $related }}
+<section class="related-posts" aria-label="{{ i18n "relatedPosts" | default "Related Posts" }}" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color, #e5e7eb);">
+  <h2 class="related-posts-title" style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">{{ i18n "relatedPosts" | default "Related Posts" }}</h2>
+  <ul class="related-posts-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem;">
+    {{ range . }}
+    <li class="related-post-item" style="padding: 0.75rem; border-radius: 0.5rem; background: var(--surface-color, #f9fafb);">
+      <a href="{{ .RelPermalink }}" class="related-post-link" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.25rem;">
+        <strong style="color: var(--primary-color, #BD5FFF); font-size: 0.95rem;">{{ .Title }}</strong>
+        <span style="font-size: 0.85rem; color: var(--text-muted, #6b7280); line-height: 1.4;">{{ .Description | default (.Summary | plainify | truncate 120) }}</span>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}
