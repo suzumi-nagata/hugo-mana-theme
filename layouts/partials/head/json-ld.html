@@ -6,8 +6,8 @@
   {{ $author = merge $author (dict "email" site.Params.social.email) }}
 {{ end }}
 {{ $publisher := dict "@type" "Organization" "name" site.Title "url" site.BaseURL }}
-{{ if and site.Params.avatar site.Params.avatar.url }}
-  {{ $publisher = merge $publisher (dict "logo" (dict "@type" "ImageObject" "url" site.Params.avatar.url)) }}
+{{ if and site.Params.avatar site.Params.avatar.home.assetPath }}
+  {{ $publisher = merge $publisher (dict "logo" (dict "@type" "ImageObject" "url" (site.Params.avatar.home.assetPath | absURL))) }}
 {{ end }}
 {{ $blogPosting := dict
   "@context" "https://schema.org"
@@ -24,10 +24,11 @@
   "author" $author
   "publisher" $publisher
 }}
-{{ if .Params.image }}
-  {{ $blogPosting = merge $blogPosting (dict "image" (.Params.image | absURL)) }}
-{{ else if site.Params.avatar }}
-  {{ $blogPosting = merge $blogPosting (dict "image" site.Params.avatar.url) }}
+{{ $resolvedImage := partial "post-image-resolve.html" . }}
+{{ if $resolvedImage.image }}
+  {{ $blogPosting = merge $blogPosting (dict "image" ($resolvedImage.image | absURL)) }}
+{{ else if and site.Params.avatar site.Params.avatar.home.assetPath }}
+  {{ $blogPosting = merge $blogPosting (dict "image" (site.Params.avatar.home.assetPath | absURL)) }}
 {{ end }}
 {{ if .Params.tags }}
   {{ $blogPosting = merge $blogPosting (dict "keywords" .Params.tags) }}
@@ -59,8 +60,8 @@
       {{ $webSite = merge $webSite (dict "author" (merge ($webSite.author) (dict "email" site.Params.social.email))) }}
     {{ end }}
   {{ end }}
-  {{ if and site.Params.avatar site.Params.avatar.url }}
-    {{ $webSite = merge $webSite (dict "publisher" (dict "@type" "Organization" "name" site.Title "logo" (dict "@type" "ImageObject" "url" site.Params.avatar.url))) }}
+  {{ if and site.Params.avatar site.Params.avatar.home.assetPath }}
+    {{ $webSite = merge $webSite (dict "publisher" (dict "@type" "Organization" "name" site.Title "logo" (dict "@type" "ImageObject" "url" (site.Params.avatar.home.assetPath | absURL)))) }}
   {{ end }}
   {{ $webSite = merge $webSite (dict "potentialAction" (dict "@type" "SearchAction" "target" (dict "@type" "EntryPoint" "urlTemplate" (printf "%s?q={search_term_string}" site.BaseURL)) "query-input" "required name=search_term_string")) }}
 {{ printf "<script type=\"application/ld+json\">%s</script>" ($webSite | jsonify) | safeHTML }}
