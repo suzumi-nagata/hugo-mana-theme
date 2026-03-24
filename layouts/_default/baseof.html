@@ -2,6 +2,9 @@
 <html lang="{{ site.Language.LanguageCode }}" class="h-full">
   <head>
     {{ partial "head.html" . }}
+    {{ if .Param "math" }}
+    {{ partialCached "math.html" . }}
+    {{ end }}
   </head>
   <body class="flex flex-col min-h-screen{{ if eq site.Language.LanguageDirection "rtl" }} rtl{{ end }}">
     <a href="#main-content" class="skip-to-main" aria-label="{{ i18n "skipToMain" }}"
