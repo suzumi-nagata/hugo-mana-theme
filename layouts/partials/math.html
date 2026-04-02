@@ -2,12 +2,13 @@
 
 <script>
   MathJax = {
-    tex: {
-      displayMath: [['\\[', '\\]'], ['$$', '$$']],  // block
-      inlineMath: [['\\(', '\\)']]                  // inline
-    },
-    loader:{
-      load: ['ui/safe']
-    },
+      tex: {
+          displayMath: [['\\[', '\\]'], ['$$', '$$']],  // block
+          inlineMath: [['\\(', '\\)']],                  // inline
+          tags: "ams"
+      },
+      loader:{
+          load: ['ui/safe']
+      },
   };
 </script>
