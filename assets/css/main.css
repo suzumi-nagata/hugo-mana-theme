@@ -59,3 +59,12 @@ main {
   padding: var(--spacing-xl) var(--spacing-lg);
   min-height: calc(100vh - 200px);
 }
+
+.centered-figure {
+    text-align: center;
+}
+
+.centered-figure img {
+    margin: 0 auto;
+    display: block;
+}
