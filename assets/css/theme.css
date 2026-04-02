@@ -15,6 +15,12 @@ html {
   overflow-x: clip; /* Prevents horizontal scroll without breaking position: sticky */
 }
 
+@media (max-width: 1024px) {
+  html {
+    scroll-padding-top: 8.5rem; /* Height of header (~70px) + collapsed TOC toggle (~60px) */
+  }
+}
+
 :root {
   /* Nebula Glass Color Palette */
   --bg-deep: #020617; /* Deep Midnight Blue */
