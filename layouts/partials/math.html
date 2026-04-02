@@ -4,6 +4,41 @@
       displayMath: [['\\[', '\\]'], ['$$', '$$']],
       inlineMath: [['\\(', '\\)']],
       tags: 'ams'
+    },
+    startup: {
+      ready: () => {
+        MathJax.startup.defaultReady();
+        MathJax.startup.promise.then(() => {
+          // Additional processing if needed
+        });
+      }
+    },
+    options: {
+      renderActions: {
+        findScript: [10, function (doc) {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/);
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+            const text = node.previousSibling;
+            const process = doc.create('span', {className: 'MathJax_Preview'});
+            process.appendChild(doc.text(node.textContent));
+            node.parentNode.insertBefore(process, node);
+            doc.math.push(math);
+          }
+        }, ''],
+        // This is a more robust way to handle the double backslash issue
+        // by intercepting the TeX input before it's processed.
+        fixBackslash: [15, function (doc) {
+          for (const math of doc.math) {
+            if (math.display) {
+              // Replace single backslash at end of line with double backslash 
+              // but only if it's not already a double backslash.
+              // Hugo's Markdown processor often eats one backslash.
+              math.math = math.math.replace(/\\(\s*[\r\n]+)/g, '\\\\$1');
+            }
+          }
+        }, '']
+      }
     }
   };
 </script>
