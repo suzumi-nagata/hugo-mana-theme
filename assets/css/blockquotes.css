@@ -11,6 +11,7 @@
   border-radius: 0.5rem;
   color: var(--text-primary);
   position: relative;
+  overflow-x: auto;
 }
 
 .post-content-main blockquote.blockquote-regular p {
@@ -90,6 +91,7 @@
   padding: var(--spacing-md) var(--spacing-lg);
   color: var(--text-primary);
   line-height: 1.8;
+  overflow-x: auto;
 }
 
 .post-content-main .alert-content p {

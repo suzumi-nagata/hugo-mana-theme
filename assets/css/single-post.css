@@ -445,6 +445,43 @@
   padding: inherit;
 }
 
+/* MathJax equations overflow handling */
+.post-content-main mjx-container[display="true"],
+.post-content-main .MathJax_Display {
+  display: block !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  padding: 1rem 0;
+  margin: 1em 0 !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure the inner math content doesn't force parent expansion */
+.post-content-main mjx-container[display="true"] mjx-math {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.post-content-main mjx-container[display="true"]::-webkit-scrollbar {
+  height: 4px;
+}
+
+.post-content-main mjx-container[display="true"]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.post-content-main mjx-container[display="true"]::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 2px;
+}
+
+.post-content-main mjx-container[display="true"]::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-muted);
+}
+
 .post-footer {
   margin-top: var(--spacing-xl);
   padding-top: var(--spacing-lg);
