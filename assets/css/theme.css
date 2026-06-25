@@ -93,52 +93,37 @@ html {
 }
 
 [data-theme="light"] {
-  --bg-primary: #ffffff;
+  --bg-primary: #faf4ed; /* Rosé Pine Dawn Base (Soft Paper) */
   /* Light theme glassmorphism - minimal white overlay, backdrop blur creates the glassy effect */
-  --glass-surface: rgba(
-    255,
-    255,
-    255,
-    0.2
-  ); /* Minimal white overlay - backdrop blur does the work */
-  --glass-border: rgba(
-    196,
-    181,
-    253,
-    0.5
-  ); /* More defined purple-tinted border for better visibility */
-  --glass-block: rgba(255, 255, 255, 0.8);
+  --glass-surface: rgba(255, 250, 243, 0.35); /* Surface #fffaf3 with transparency */
+  --glass-border: rgba(121, 117, 147, 0.2); /* Subtle #797593 with transparency */
+  --glass-block: rgba(255, 250, 243, 0.75); /* Surface #fffaf3 with transparency */
   --bg-secondary: var(--glass-surface); /* Use glass-surface for glass effect */
-  --bg-tertiary: rgba(
-    255,
-    255,
-    255,
-    0.25
-  ); /* Slightly more visible for tertiary surfaces */
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  /* Light theme purple palette - much darker, more saturated for contrast on light backgrounds */
-  --accent-primary: #6b21a8; /* Very dark purple for primary */
-  --accent-mid-purple: #7c3aed; /* Dark purple for mid */
-  --accent-light-purple: #9333ea; /* Medium-dark purple for light accent */
-  --accent-secondary: #7e22ce;
-  --accent-hover: #7c3aed;
+  --bg-tertiary: rgba(242, 233, 225, 0.6); /* Overlay #f2e9e1 with transparency */
+  --text-primary: #34304f; /* Darkened Rosé Pine Dawn Text for higher contrast */
+  --text-secondary: #595575; /* Darkened Rosé Pine Dawn Subtle */
+  --text-muted: #79758f; /* Darkened Rosé Pine Dawn Muted */
+  /* Darker Teal Accent for contrast */
+  --accent-primary: #125672;
+  --accent-mid-purple: #3e747e; /* Darkened Foam */
+  --accent-light-purple: #6d5988; /* Darkened Iris */
+  --accent-secondary: #1a5168; /* Darkened Pine */
+  --accent-hover: #1a5168;
   --border-color: var(--glass-border);
-  /* Light theme rgba values for effects - darker purples for better contrast */
-  --accent-primary-rgba-03: rgba(107, 33, 168, 0.3);
-  --accent-primary-rgba-05: rgba(107, 33, 168, 0.5);
-  --accent-light-purple-rgba-01: rgba(147, 51, 234, 0.1);
-  --accent-light-purple-rgba-03: rgba(147, 51, 234, 0.3);
-  --accent-mid-purple-rgba-05: rgba(124, 58, 237, 0.05);
-  --accent-mid-purple-rgba-01: rgba(124, 58, 237, 0.1);
-  --accent-mid-purple-rgba-02: rgba(124, 58, 237, 0.2);
-  /* Tag styling for light theme - lighter background, darker purple text */
-  --tag-bg: rgba(124, 58, 237, 0.1);
-  --tag-color: #6b21a8;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  /* Light theme rgba values for effects */
+  --accent-primary-rgba-03: rgba(18, 86, 114, 0.3);
+  --accent-primary-rgba-05: rgba(18, 86, 114, 0.5);
+  --accent-light-purple-rgba-01: rgba(109, 89, 136, 0.1);
+  --accent-light-purple-rgba-03: rgba(109, 89, 136, 0.3);
+  --accent-mid-purple-rgba-05: rgba(62, 116, 126, 0.05);
+  --accent-mid-purple-rgba-01: rgba(62, 116, 126, 0.1);
+  --accent-mid-purple-rgba-02: rgba(62, 116, 126, 0.2);
+  /* Tag styling for light theme */
+  --tag-bg: rgba(18, 86, 114, 0.1);
+  --tag-color: #125672;
+  --shadow-sm: 0 1px 2px 0 rgba(52, 48, 79, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(52, 48, 79, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(52, 48, 79, 0.1);
 }
 
 body {
@@ -167,17 +152,17 @@ body {
 
 /* Light theme background */
 [data-theme="light"] {
-  --bg-deep: #ffffff; /* Override bg-deep for light theme */
+  --bg-deep: #faf4ed; /* Override bg-deep for light theme */
 }
 
 [data-theme="light"] body {
-  background-color: #ffffff;
-  /* Light theme radial gradient: subtle purple/lavender tint in center, fading to white at edges */
+  background-color: #faf4ed;
+  /* Light theme radial gradient: subtle warm/rose/iris tint in center, fading to soft paper at edges */
   background-image: radial-gradient(
     circle at center,
-    rgba(196, 133, 246, 0.2) 0%,
-    rgba(243, 232, 255, 0.4) 40%,
-    #ffffff 100%
+    rgba(215, 130, 126, 0.12) 0%,
+    rgba(255, 250, 243, 0.3) 40%,
+    #faf4ed 100%
   );
   background-attachment: fixed;
   background-size: 100% 100%;
