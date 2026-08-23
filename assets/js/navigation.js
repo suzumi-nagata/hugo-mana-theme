@@ -119,6 +119,34 @@ function initMobileMenu() {
     mobileMenuClose.addEventListener("click", closeMobileMenu);
   }
 
+  // Swipe right to open menu (mobile)
+  let touchStartX = null;
+  window.addEventListener("touchstart", function(e) {
+    if (e.touches.length === 1) {
+      touchStartX = e.touches[0].clientX;
+    }
+  });
+  window.addEventListener("touchend", function(e) {
+    if (touchStartX !== null) {
+      const touchEndX = e.changedTouches[0].clientX;
+      const deltaX = touchEndX - touchStartX;
+      // Right swipe to open, left swipe to close (minimum 50px)
+      if (deltaX > 50) {
+        if (mobileMenu.getAttribute("aria-hidden") === "true") {
+          openMobileMenu();
+        }
+      } else if (deltaX < -50) {
+        if (mobileMenu.getAttribute("aria-hidden") === "false") {
+          closeMobileMenu();
+        }
+      }
+      touchStartX = null;
+    }
+  });
+  if (mobileMenuClose) {
+    mobileMenuClose.addEventListener("click", closeMobileMenu);
+  }
+
   // Close menu when clicking on overlay
   const overlay = mobileMenu.querySelector(".mobile-menu-overlay");
   if (overlay) {
